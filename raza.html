@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raza</title>
+</head>
+<body>
+    <script>
+
+        let arreglo = [];
+        class Raza {
+            constructor(nombre, variedades, imagen) {
+                this.nombre = nombre;
+                this.variedades = variedades;
+            }
+
+            getPhoto(raza) {
+                const url = `https://dog.ceo/api/breed/${raza}/images/random`;
+                return console.log(url);
+            }
+        }
+
+        function imprimirRaza( nombre, variedades ) {
+            return ( nombre = new Raza(nombre, variedades));
+        } 
+        
+        function razaAPI() {
+            const url = 'https://dog.ceo/api/breeds/list/all';
+            const pet = new XMLHttpRequest();
+            pet.open('GET', url);
+            pet.responseType = 'json';
+            pet.send();
+
+            pet.onload = () => {
+                const respuesta = pet.response;
+                arreglo = Object.entries( respuesta.message ).map( raza => {
+                    imprimirRaza( raza[0], raza[1] ).getPhoto(raza[0])
+                });
+                llenarDatos( respuesta );
+            }
+        }
+
+        function llenarDatos(datos) {
+            let razas = datos.message;
+            console.log(razas);
+            for (const raza in razas)  {
+                if (Object.hasOwnProperty.call(razas, raza)) {
+                    const variedades = razas[raza];
+
+                    console.log(imprimirRaza(raza, variedades));
+                }
+            }
+        }
+
+        razaAPI();
+    </script>
+</body>
+</html>
