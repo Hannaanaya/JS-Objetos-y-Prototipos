@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perros</title>
+</head>
+<body>
+    <h1>Objetos y prototipos</h1>
+    
+    <script>
+        
+        let arreglo = [];
+        var url = 'https://dog.ceo/api/breeds/list/all';
+
+        const raza = {
+            nombre: '',
+            variedad: [],
+            imagen: []
+        };
+
+        getPhoto = (raza) => {
+                const url = `https://dog.ceo/api/breed/${raza}/images/random`;
+                return console.log(url);
+            }
+
+        var razaAPI = () => {
+            fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                arreglo = Object.entries(data.message).map(dog => {
+                    raza.nombre = dog[0];
+                    raza.variedad = dog[1];
+                    raza.imagen = getPhoto(dog[0]);
+                    console.log(raza);
+                });
+            })
+            .catch((error) => console.log('Ha ocurrido un error', error));
+        };
+
+        razaAPI();
+
+    </script>
+</body>
+</html>
